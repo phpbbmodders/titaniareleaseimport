@@ -188,7 +188,7 @@ class listener implements EventSubscriberInterface
 		catch (release_exception $error)
 		{
 			// Parameters can come from the code host, such as file names, so they are escaped for the page
-			$parameters = array_map(static fn ($value) => is_string($value) ? htmlspecialchars($value, ENT_COMPAT, 'UTF-8') : $value, $error->get_parameters());
+			$parameters = array_map(static fn ($value) => is_string($value) ? utf8_htmlspecialchars($value) : $value, $error->get_parameters());
 			$errors = $event['import_errors'];
 			$errors[] = $this->language->lang($error->getMessage(), ...$parameters);
 			$event['import_errors'] = $errors;
