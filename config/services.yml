@@ -1,0 +1,40 @@
+parameters:
+    phpbbmodders.titaniareleaseimport.tables.repos: '%core.table_prefix%titaniareleaseimport_repos'
+
+services:
+    phpbbmodders.titaniareleaseimport.http_client:
+        class: phpbbmodders\titaniareleaseimport\service\http_client
+
+    phpbbmodders.titaniareleaseimport.provider_loader:
+        class: phpbbmodders\titaniareleaseimport\service\provider_loader
+        arguments:
+            - '@phpbbmodders.titaniareleaseimport.http_client'
+            - '@config'
+            - '%core.root_path%ext/phpbbmodders/titaniareleaseimport/provider'
+
+    phpbbmodders.titaniareleaseimport.repository_links:
+        class: phpbbmodders\titaniareleaseimport\service\repository_links
+        arguments:
+            - '@dbal.conn'
+            - '%phpbbmodders.titaniareleaseimport.tables.repos%'
+
+    phpbbmodders.titaniareleaseimport.importer:
+        class: phpbbmodders\titaniareleaseimport\service\importer
+        arguments:
+            - '@phpbbmodders.titaniareleaseimport.provider_loader'
+            - '@phpbbmodders.titaniareleaseimport.repository_links'
+            - '@phpbbmodders.titaniareleaseimport.http_client'
+            - '@config'
+            - '%core.cache_dir%'
+
+    phpbbmodders.titaniareleaseimport.listener:
+        class: phpbbmodders\titaniareleaseimport\event\listener
+        arguments:
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@phpbbmodders.titaniareleaseimport.provider_loader'
+            - '@phpbbmodders.titaniareleaseimport.repository_links'
+            - '@phpbbmodders.titaniareleaseimport.importer'
+        tags:
+            - { name: event.listener }

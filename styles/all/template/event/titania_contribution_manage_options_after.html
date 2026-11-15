@@ -1,0 +1,16 @@
+<dl>
+	<dt><label for="titaniareleaseimport_repository">{{ lang('TITANIARELEASEIMPORT_REPOSITORY') ~ lang('COLON') }}</label><br><span id="titaniareleaseimport_repository_explain">{{ lang('TITANIARELEASEIMPORT_REPOSITORY_EXPLAIN') }}</span></dt>
+	<dd>
+		{% if S_TITANIARELEASEIMPORT_ONE_PROVIDER %}
+			{% for provider in titaniareleaseimport_providers %}<input type="hidden" name="titaniareleaseimport_provider" value="{{ provider.NAME }}">{% endfor %}
+		{% else %}
+			<label for="titaniareleaseimport_provider" class="sr-only">{{ lang('TITANIARELEASEIMPORT_SERVICE') }}</label>
+			<select id="titaniareleaseimport_provider" name="titaniareleaseimport_provider">
+			{% for provider in titaniareleaseimport_providers %}
+				<option value="{{ provider.NAME }}"{% if provider.S_SELECTED %} selected{% endif %}>{{ provider.LABEL }}</option>
+			{% endfor %}
+			</select>
+		{% endif %}
+		<input type="text" class="inputbox autowidth" id="titaniareleaseimport_repository" name="titaniareleaseimport_repository" value="{{ TITANIARELEASEIMPORT_REPOSITORY }}" size="50" maxlength="255" spellcheck="false" aria-describedby="titaniareleaseimport_repository_explain">
+	</dd>
+</dl>

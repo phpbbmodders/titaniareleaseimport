@@ -1,0 +1,16 @@
+{% if S_TITANIARELEASEIMPORT_LINKED %}
+<fieldset class="fields2" aria-labelledby="titaniareleaseimport_heading">
+	<h4 id="titaniareleaseimport_heading">{{ lang('TITANIARELEASEIMPORT_IMPORT') }}</h4>
+	<p id="titaniareleaseimport_explain">{{ lang('TITANIARELEASEIMPORT_IMPORT_EXPLAIN', '<a href="' ~ U_TITANIARELEASEIMPORT_REPOSITORY ~ '">' ~ TITANIARELEASEIMPORT_REPOSITORY ~ '</a>', TITANIARELEASEIMPORT_PROVIDER) }}</p>
+	<dl>
+		<dt><label for="titaniareleaseimport_release">{{ lang('TITANIARELEASEIMPORT_RELEASE') ~ lang('COLON') }}</label></dt>
+		<dd><input type="text" class="inputbox autowidth" id="titaniareleaseimport_release" name="titaniareleaseimport_release" value="{{ TITANIARELEASEIMPORT_RELEASE }}" size="50" maxlength="255" spellcheck="false" aria-describedby="titaniareleaseimport_explain"></dd>
+	</dl>
+	<dl>
+		<dt><label for="titaniareleaseimport_asset">{{ lang('TITANIARELEASEIMPORT_ASSET') ~ lang('COLON') }}</label><br><span id="titaniareleaseimport_asset_explain">{{ lang('TITANIARELEASEIMPORT_ASSET_EXPLAIN') }}</span></dt>
+		<dd><input type="text" class="inputbox autowidth" id="titaniareleaseimport_asset" name="titaniareleaseimport_asset" value="{{ TITANIARELEASEIMPORT_ASSET }}" size="50" maxlength="255" spellcheck="false" aria-describedby="titaniareleaseimport_asset_explain"></dd>
+	</dl>
+</fieldset>
+{% else %}
+<p>{{ lang('TITANIARELEASEIMPORT_NOT_LINKED', U_TITANIARELEASEIMPORT_MANAGE) }}</p>
+{% endif %}
